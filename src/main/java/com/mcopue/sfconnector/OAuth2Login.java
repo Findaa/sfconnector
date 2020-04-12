@@ -12,18 +12,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 @Component
 public class OAuth2Login {
     public OAuth2Login(SecurityVariables sc) {
         this.sc = sc;
     }
-    SecurityVariables sc;
 
+    SecurityVariables sc;
     //todo: implement fetchable credentials.
     private String endpointOauth = "/services/oauth2/token";
     private String endpointRest = "/services/data";
@@ -41,7 +36,6 @@ public class OAuth2Login {
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(loginHostUri);
-
             StringBuffer requestBodyText = new StringBuffer("grant_type=password");
             requestBodyText.append("&username=");
             requestBodyText.append(userCredentials.userName);
@@ -54,12 +48,11 @@ public class OAuth2Login {
 
             StringEntity requestBody = new StringEntity(requestBodyText.toString());
             requestBody.setContentType("application/x-www-form-urlencoded");
-
             httpPost.setEntity(requestBody);
             httpPost.addHeader(prettyPrintHeader);
-
             response = httpClient.execute(httpPost);
             if (response.getStatusLine().getStatusCode() == 200) {
+
                 String response_string = EntityUtils.toString(response.getEntity());
                 try {
                     JSONObject json = new JSONObject(response_string);
@@ -69,33 +62,23 @@ public class OAuth2Login {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 baseUri = sfResponse.instance_url + endpointRest + "/v" + userCredentials.apiVersion + ".0";
                 oauthHeader = new BasicHeader("Authorization", "OAuth " + sfResponse.access_token);
                 System.out.println("XD");
+
             } else {
                 System.out.println(response.getStatusLine().getStatusCode() + " in oauth2 login try with username: " + userCredentials.userName);
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return response;
-
     }
 
     public static class SfResponse {
-        String id;
-        String issued_at;
-        String instance_url;
-        String signature;
-        String access_token;
-        boolean flag = false;
-
         public SfResponse() {
         }
-
         public SfResponse(JSONObject json) {
             try {
                 id = json.getString("id");
@@ -109,24 +92,13 @@ public class OAuth2Login {
                 e.printStackTrace();
             }
         }
-    }
 
-    private String getBody(InputStream inputStream) {
-        String result = "";
-        try {
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(inputStream)
-            );
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                result += inputLine;
-                result += "\n";
-            }
-            in.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        return result;
+        String id;
+        String issued_at;
+        String instance_url;
+        String signature;
+        String access_token;
+        boolean flag = false;
     }
 
     class UserCredentials {
@@ -136,7 +108,6 @@ public class OAuth2Login {
         String password = sc.getPassword();
         String consumerKey = sc.consumerKey;
         String consumerSecret = sc.consumerSecret;
-        String grantType = "password";
     }
 
 }
