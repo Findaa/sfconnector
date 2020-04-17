@@ -5,20 +5,24 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OAuth2Login {
-    public OAuth2Login(SecurityVariables sc) {
-        this.sc = sc;
+    public OAuth2Login(SecurityVariables sv) {
+        this.sv = sv;
     }
 
-    SecurityVariables sc;
+    @Autowired
+    SecurityVariables sv;
     //todo: implement fetchable credentials.
     private String endpointOauth = "/services/oauth2/token";
     private String endpointRest = "/services/data";
@@ -34,25 +38,30 @@ public class OAuth2Login {
         String loginHostUri = "https://" + userCredentials.loginInstanceDomain + endpointOauth;
 
         try {
-            HttpClient httpClient = new DefaultHttpClient();
+            CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(loginHostUri);
             StringBuffer requestBodyText = new StringBuffer("grant_type=password");
             requestBodyText.append("&username=");
-            requestBodyText.append(userCredentials.userName);
+            requestBodyText.append(sv.getUserName());
             requestBodyText.append("&password=");
-            requestBodyText.append(userCredentials.password);
+            requestBodyText.append(sv.getPassword());
             requestBodyText.append("&client_id=");
-            requestBodyText.append(userCredentials.consumerKey);
+            requestBodyText.append(sv.getConsumerKey());
             requestBodyText.append("&client_secret=");
-            requestBodyText.append(userCredentials.consumerSecret);
+            requestBodyText.append(sv.getConsumerSecret());
 
             StringEntity requestBody = new StringEntity(requestBodyText.toString());
-            requestBody.setContentType("application/x-www-form-urlencoded");
+//            requestBody.setContentType("application/x-www-form-urlencoded");
             httpPost.setEntity(requestBody);
             httpPost.addHeader(prettyPrintHeader);
             response = httpClient.execute(httpPost);
-            if (response.getStatusLine().getStatusCode() == 200) {
 
+            System.out.println("http post: " + httpPost.getConfig());
+            System.out.println("user creds: " + sv.getUserName() + sv.getPassword() + sv.getConsumerSecret());
+            System.out.println("request body: " + requestBodyText.toString());
+            System.out.println("response code: " + response.getStatusLine().getStatusCode());
+
+            if (response.getStatusLine().getStatusCode() == 200) {
                 String response_string = EntityUtils.toString(response.getEntity());
                 try {
                     JSONObject json = new JSONObject(response_string);
@@ -104,10 +113,10 @@ public class OAuth2Login {
     class UserCredentials {
         String loginInstanceDomain = "mcopue-dev-ed.lightning.force.com";
         String apiVersion = "47";
-        String userName = sc.getUserName();
-        String password = sc.getPassword();
-        String consumerKey = sc.consumerKey;
-        String consumerSecret = sc.consumerSecret;
+        String userName = sv.getUserName();
+        String password = sv.getPassword();
+        String consumerKey = sv.consumerKey;
+        String consumerSecret = sv.consumerSecret;
     }
 
 }
