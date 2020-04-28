@@ -11,5 +11,4 @@ public class SfconnectorApplication {
     public static void main(String[] args) {
         SpringApplication.run(SfconnectorApplication.class, args);
     }
-
 }
