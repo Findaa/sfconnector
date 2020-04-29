@@ -30,8 +30,7 @@ public class LoginControllerHelper {
                 + "&code=" + sv.getAuthorizedCode()
                 + "&client_id=" + sv.getConsumerKey()
                 + "&client_secret=" + sv.getConsumerSecret()
-                + "&redirect_url=" + sv.getRedirect();
-
+                + "&redirect_uri=" + sv.getRedirect();
         try {
             StringEntity requestEntity = new StringEntity(requestBody);
             requestEntity.setContentType("application/x-www-form-urlencoded");
