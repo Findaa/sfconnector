@@ -15,7 +15,7 @@
 
 <div class="container"></div>
 <a href = "https://login.salesforce.com/services/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirect}&response_type=code">
-    Login with SF
+    Click to login
 </a>
 </body>
 </html>

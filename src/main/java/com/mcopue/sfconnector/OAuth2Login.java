@@ -19,16 +19,7 @@ public class OAuth2Login {
         String clientId = "client_id=" + sv.getConsumerKey();
         String redirectUrl = "&redirect_url=" + sv.getRedirect();
         String responseType = "&response_type=code";
-        URL url;
         System.out.println("In login method");
-        try {
-            System.out.println("In try method");
-            url = new URL(host+clientId+redirectUrl+responseType);
-            URLConnection con = url.openConnection();
-        } catch (Exception e) {
-            System.out.println("Error catched: ");
-            e.printStackTrace();
-        }
         return "redirect:/" + host+clientId+redirectUrl+responseType;
     }
 }
