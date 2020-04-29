@@ -13,7 +13,7 @@ public class AppConfig {
     @Bean
     public org.springframework.web.servlet.ViewResolver viewResolver() {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
-        bean.setPrefix("webapp/jsp/");
+        bean.setPrefix("/jsp/");
         bean.setSuffix(".jsp");
         return bean;
     }

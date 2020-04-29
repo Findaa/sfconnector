@@ -1,10 +1,10 @@
 package com.mcopue.sfconnector;
 
-import org.apache.http.HttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,26 +12,33 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     LoginControllerHelper helper;
+    SecurityVariables sv;
 
-    public LoginController(LoginControllerHelper helper) {
+    public LoginController(LoginControllerHelper helper, SecurityVariables sv) {
         this.helper = helper;
-    }
-
-    //todo: implement template
-    @RequestMapping("/salesforce")
-    public String displaySalesforceLogin(){
-        return "";
+        this.sv=sv;
     }
 
     @GetMapping("/login")
-    public void runLogin(HttpSession session){
-//        String username = session.getAttribute("username").toString();
-//        String password = session.getAttribute("password").toString();
-        helper.login("username", "password");
+    public String runLogin(HttpSession session) {
+        session.setAttribute("clientId", sv.getConsumerKey());
+        session.setAttribute("redirect", sv.getRedirect());
+        return "login";
     }
 
-    @GetMapping("/postLogin")
-    public void handleLogin(){
-        helper.postLogin();
+    @GetMapping("/processLogin")
+    public String processLog(HttpSession session) {
+        helper.login("u", "p");
+        return "";
+    }
+
+    @GetMapping("/auth}")
+    public void saveCode(@RequestParam String code) {
+        helper.postLogin(code);
+    }
+
+    @GetMapping("/")
+    public String displayIndex(){
+        return "index";
     }
 }
