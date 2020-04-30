@@ -1,0 +1,9 @@
+[{
+	"id": 1,
+	"name": "Statistical Tests",
+	"descr": "Section for Statistical Tests"
+}, {
+	"id": 2,
+	"name": "Plots",
+	"descr": "Section for plotters"
+}]
