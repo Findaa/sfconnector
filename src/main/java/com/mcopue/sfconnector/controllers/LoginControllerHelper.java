@@ -1,5 +1,6 @@
-package com.mcopue.sfconnector;
+package com.mcopue.sfconnector.controllers;
 
+import com.mcopue.sfconnector.SecurityVariables;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -20,7 +21,6 @@ public class LoginControllerHelper {
     public void postLogin(String code){
         sv.setAuthorizedCode(code);
         System.out.println(code);
-
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpResponse res = null;
         HttpPost post = new HttpPost("https://login.salesforce.com/services/oauth2/token");

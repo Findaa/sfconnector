@@ -1,10 +1,9 @@
-package com.mcopue.sfconnector;
+package com.mcopue.sfconnector.controllers;
 
+import com.mcopue.sfconnector.SecurityVariables;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {

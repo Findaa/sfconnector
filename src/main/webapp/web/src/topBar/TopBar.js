@@ -15,7 +15,7 @@ export default class TopBar extends Component {
                         <MenuItem href='/members'>About members</MenuItem>
                         <MenuItem href='/projects'>Project Description</MenuItem>
                         <MenuItem divider/>
-                        <MenuItem eventKey='3' active={true}>University of Economics Site</MenuItem>
+                        <MenuItem href='/test' active={true}>Test API after login</MenuItem>
                     </DropdownButton>
                     <DropdownButton bsStyle='secondary' title='Organization / Login test'>
                         <MenuItem href='/login'>Login</MenuItem>
