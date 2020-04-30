@@ -31,6 +31,7 @@ export default class App extends Component {
                                 <Route exact path='/members' component={TestComponent}/>
                                 <Route exact path='/login' component={LoginForm}/>
                                 <Route exact path='/calendar' component={Calendar}/>
+                                <Route exact path='/test' component={TestComponent}/>
                             </Switch>
                         </div>
                     </Router>
