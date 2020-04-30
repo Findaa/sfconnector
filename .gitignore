@@ -9,6 +9,10 @@ gradle
 /src/main/java/com/mcopue/sfconnector/SecurityVariables.java
 .DS_Store*
 
+/src/main/webapp/web/node_modules
+/src/main/webapp/web/build
+/src/main/webapp/web/.idea
+
 ### STS ###
 .apt_generated
 .classpath
