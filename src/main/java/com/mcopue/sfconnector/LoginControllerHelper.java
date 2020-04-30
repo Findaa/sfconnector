@@ -12,12 +12,10 @@ import java.io.IOException;
 
 @Component
 public class LoginControllerHelper {
-    public LoginControllerHelper(SecurityVariables sv, OAuth2Login log) {
+    public LoginControllerHelper(SecurityVariables sv) {
         this.sv = sv;
-        this.log = log;
     }
     SecurityVariables sv;
-    OAuth2Login log;
 
     public void postLogin(String code){
         sv.setAuthorizedCode(code);

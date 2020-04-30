@@ -1,12 +1,12 @@
-import React, {Component, useState, useEffect}  from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import TopBarButton from "./TopBarButton.js";
 import DropdownButton from "react-bootstrap/lib/DropdownButton";
 import MenuItem from "react-bootstrap/lib/MenuItem";
-import {Button} from "react-bootstrap";
 
 export default class TopBar extends Component {
 
     barRedirect = (endpoint) => console.log("barRedirect: " + endpoint);
+
     render() {
         return (
             <div>

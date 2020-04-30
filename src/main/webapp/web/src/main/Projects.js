@@ -34,7 +34,6 @@ export default class Projects extends Component {
                             <Panel.Title componentClass="h3">{project.name}</Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>
-                            <p>{project.email}</p>
                             <p>{project.descr}</p>
                             <Button bsStyle="info" onClick={() => this.setState({selectedProject: project.id})}>
                                 Click to View Details

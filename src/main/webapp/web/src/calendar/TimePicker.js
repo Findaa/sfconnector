@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class TimePicker extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
             startDate: new Date()

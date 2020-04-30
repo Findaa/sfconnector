@@ -8,14 +8,14 @@ import TestComponent from "./main/TestComponent";
 import LoginForm from "./login/LoginForm";
 import Calendar from "./calendar/Calendar";
 
-class App extends Component {
+export default class App extends Component {
 
     render() {
         console.log("Host URL" + process.env.PUBLIC_URL);
         return (
             <div>
                 <div>
-                    <TopBar />
+                    <TopBar/>
                 </div>
                 <div>
                     <Router basename={process.env.PUBLIC_URL}>
@@ -39,5 +39,3 @@ class App extends Component {
         );
     }
 }
-
-export default App;

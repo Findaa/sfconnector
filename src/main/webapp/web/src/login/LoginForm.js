@@ -8,15 +8,13 @@ export default function LoginForm() {
     const [username, setUsername] = useState("a");
     const [password, setPassword] = useState("b");
 
-
-    //todo: user auth in if
     let requestAuthentication = (username, password) => {
         const requestParameters = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username, password})
         };
-        return fetch("http://localhost:8080/login", requestParameters)
+        return fetch("http://localhost:8080/loginfront", requestParameters)
             .then(handleResponse)
             .then(user => {
                 if (user) {
@@ -38,11 +36,9 @@ export default function LoginForm() {
     };
 
     let handleSubmit = (event) => {
-        console.log("Pozdro login: " + this.state.username + this.state.password);
         requestAuthentication(username, password);
         event.preventDefault();
     };
-
 
     return (
         <div className="Login">
@@ -54,8 +50,7 @@ export default function LoginForm() {
                         type="text"
                         onChange={e => {
                             setUsername(e.target.value);
-                        }}
-                    />
+                        }}/>
                 </FormGroup>
                 <FormGroup controlId="password" bsSize="large">
                     <ControlLabel>Password</ControlLabel>
@@ -63,17 +58,14 @@ export default function LoginForm() {
                         onChange={e => {
                             setPassword(e.target.value);
                         }}
-                        type="password"
-                    />
+                        type="password"/>
                 </FormGroup>
-                <button
-                    type="submit"
-                    onClick={handleSubmit}
-                >Login
+                <button type="submit" onClick={handleSubmit}>
+                    Login
                 </button>
             </form>
-            <div> </div>
-            <div> </div>
+            <div></div>
+            <div></div>
             <div>
                 To authorize with Salesforce, login here:
             </div>

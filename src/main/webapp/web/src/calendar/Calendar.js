@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import 'react-calendar/dist/Calendar.css';
-import DatePicker from "react-datepicker/es";
 import TimePicker from "./TimePicker";
-
 
 export default class Calendar extends Component {
     constructor(props) {
@@ -18,7 +16,7 @@ export default class Calendar extends Component {
         console.log("date")
     }
 
-    onClick (value) {
+    onClick(value) {
         this.setState({date: value});
         console.log("date")
     }
@@ -41,7 +39,6 @@ class Popup extends React.Component {
     render() {
         return (
             <div className='popup'>
-
             </div>
         );
     }
