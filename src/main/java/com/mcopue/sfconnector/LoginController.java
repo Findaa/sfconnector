@@ -18,9 +18,7 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String runLogin(HttpSession session) {
-        session.setAttribute("clientId", sv.getConsumerKey());
-        session.setAttribute("redirect", sv.getRedirect());
+    public String runLogin() {
         return "redirect:https://login.salesforce.com/services/oauth2/authorize?client_id=" + sv.getConsumerKey()
                 + "&redirect_uri=" + sv.getRedirect()
                 + "&response_type=code";
