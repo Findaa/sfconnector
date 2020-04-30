@@ -23,6 +23,6 @@ public class RestController {
     @GetMapping("/uid")
     @ResponseBody
     public List<String> getUserId(){
-        return helper.createObjectList("spring test");
+        return helper.createObjectList(helper.getAccountName("0013X00002aMc2cQAC"));
     }
 }

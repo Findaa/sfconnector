@@ -2,11 +2,13 @@ package com.mcopue.sfconnector.controllers;
 
 import com.mcopue.sfconnector.SecurityVariables;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -20,8 +22,8 @@ public class LoginControllerHelper {
 
     public void postLogin(String code){
         sv.setAuthorizedCode(code);
-        System.out.println(code);
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        HttpClient httpClient = HttpClients.createDefault();
         HttpResponse res = null;
         HttpPost post = new HttpPost("https://login.salesforce.com/services/oauth2/token");
         String requestBody = "grant_type=authorization_code"
@@ -29,18 +31,25 @@ public class LoginControllerHelper {
                 + "&client_id=" + sv.getConsumerKey()
                 + "&client_secret=" + sv.getConsumerSecret()
                 + "&redirect_uri=" + sv.getRedirect();
+
         try {
             StringEntity requestEntity = new StringEntity(requestBody);
             requestEntity.setContentType("application/x-www-form-urlencoded");
             post.setEntity(requestEntity);
-            System.out.println("Entity: \n" + EntityUtils.toString(requestEntity));
-            System.out.println("Post Entity: \n" + EntityUtils.toString(post.getEntity()));
             res = httpClient.execute(post);
         } catch(Exception e){
             e.printStackTrace();
         }
+
         try {
-            System.out.println("Response Entity: \n" + EntityUtils.toString(res.getEntity()));
+            String responseEntity = EntityUtils.toString(res.getEntity());
+            JSONObject json = new JSONObject(responseEntity);
+            sv.setAccess_token(json.getString("access_token"));
+            sv.setSignature(json.getString("signature"));
+            sv.setId(json.getString("id"));
+            sv.setIssued_at(json.getString("issued_at"));
+            sv.setSignature(json.getString("signature"));
+            sv.setInstance_url(json.getString("instance_url"));
         } catch(IOException io){
             io.printStackTrace();
         }
