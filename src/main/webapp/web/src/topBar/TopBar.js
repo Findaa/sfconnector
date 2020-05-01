@@ -22,6 +22,10 @@ export default class TopBar extends Component {
         }
     }
 
+    logout(){
+        axios.post("http://localhost:8080/logout")
+    };
+
     render() {
         if(!this.state.authOk) {
             return (
@@ -40,7 +44,6 @@ export default class TopBar extends Component {
                             <MenuItem href='/login'>Login</MenuItem>
                             <MenuItem href='/calendar'>Calendar</MenuItem>
                             <MenuItem divider/>
-                            <MenuItem eventKey='4'>Logout</MenuItem>
                         </DropdownButton>
                         <TopBarButton name="Functional Button Test" action={this.barRedirect} endpoint="/testEndpoint"/>
                     </div>
@@ -68,7 +71,7 @@ export default class TopBar extends Component {
                             <MenuItem href='/login'>Login</MenuItem>
                             <MenuItem href='/calendar'>Calendar</MenuItem>
                             <MenuItem divider/>
-                            <MenuItem eventKey='4'>Logout</MenuItem>
+                            <MenuItem href="http://localhost:8080/logout">Logout</MenuItem>
                         </DropdownButton>
                         <TopBarButton name="Functional Button Test" action={this.barRedirect} endpoint="/testEndpoint"/>
                     </div>

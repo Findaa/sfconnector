@@ -7,6 +7,7 @@ import TopBar from "./topBar/TopBar";
 import TestComponent from "./main/TestComponent";
 import LoginForm from "./login/LoginForm";
 import Calendar from "./calendar/Calendar";
+import AboutTemplate from "./topBar/about/AboutTemplate";
 
 
 export default class App extends Component {
@@ -28,11 +29,15 @@ export default class App extends Component {
                                 <Route exact path="/" render={() => (
                                     <Redirect to="/projects"/>
                                 )}/>
+
                                 <Route exact path='/projects' component={Projects}/>
-                                <Route exact path='/members' component={TestComponent}/>
                                 <Route exact path='/login' component={LoginForm}/>
                                 <Route exact path='/calendar' component={Calendar}/>
                                 <Route exact path='/test' component={TestComponent}/>
+                                <Route exact path='/members' component={TestComponent}/>
+                                <Route exact path='/motivation' component={AboutTemplate}/>
+                                <Route exact path='/res' component={AboutTemplate}/>
+                                <Route exact path='/flow' component={AboutTemplate}/>
                             </Switch>
                         </div>
                     </Router>

@@ -28,4 +28,10 @@ public class LoginController {
         helper.postLogin(code);
         return "redirect:http://localhost:3000";
     }
+
+    @GetMapping("/logout")
+    public String logout(){
+        sv.setAccess_token("");
+        return "redirect:http://localhost:3000";
+    }
 }
