@@ -1,5 +1,6 @@
 package com.mcopue.sfconnector.controllers;
 
+import com.mcopue.sfconnector.domain.AccountSf;
 import com.mcopue.sfconnector.services.State;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,11 @@ public class RestController {
     @ResponseBody
     public List<String> getUserId(){
         return helper.createObjectList(helper.getAccountName("0013X00002aMc2cQAC"));
+    }
+
+    @GetMapping("/accounts")
+    public List <AccountSf> getAccounts(){
+        return null;
     }
 
     @GetMapping("/issfauthorized")

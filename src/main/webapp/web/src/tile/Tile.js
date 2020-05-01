@@ -3,7 +3,6 @@ import Panel from 'react-bootstrap/lib/Panel'
 import axios from 'axios'
 
 export default class Tile extends Component {
-
     constructor(props) {
         super(props);
         this.state = {}

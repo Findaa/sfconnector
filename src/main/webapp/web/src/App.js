@@ -8,6 +8,7 @@ import TestComponent from "./main/TestComponent";
 import LoginForm from "./login/LoginForm";
 import Calendar from "./calendar/Calendar";
 import AboutTemplate from "./topBar/about/AboutTemplate";
+import Members from "./topBar/about/Members";
 
 
 export default class App extends Component {
@@ -34,7 +35,7 @@ export default class App extends Component {
                                 <Route exact path='/login' component={LoginForm}/>
                                 <Route exact path='/calendar' component={Calendar}/>
                                 <Route exact path='/test' component={TestComponent}/>
-                                <Route exact path='/members' component={TestComponent}/>
+                                <Route exact path='/members' component={Members}/>
                                 <Route exact path='/motivation' component={AboutTemplate}/>
                                 <Route exact path='/res' component={AboutTemplate}/>
                                 <Route exact path='/flow' component={AboutTemplate}/>
