@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 
-import './App.css';
+import './main/App.css';
 import Projects from './main/Projects'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import TopBar from "./topBar/TopBar";
 import TestComponent from "./main/TestComponent";
 import LoginForm from "./login/LoginForm";
 import Calendar from "./calendar/Calendar";
+
 
 export default class App extends Component {
 
