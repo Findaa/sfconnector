@@ -23,6 +23,13 @@ public class RestController {
     @GetMapping("/uid")
     @ResponseBody
     public List<String> getUserId(){
-        return helper.createObjectList("spring test");
+        return helper.createObjectList(helper.getAccountName("0013X00002aMc2cQAC"));
+    }
+
+    @GetMapping("/issfauthorized")
+    @ResponseBody
+    public Boolean checkIfSalesforceIsAuthorised(){
+        System.out.println("Checked auth, returned: " + (helper.getAccountName("0013X00002aMc2cQAC").length() == 35) + System.currentTimeMillis());
+        return helper.getAccountName("0013X00002aMc2cQAC").length() == 35;
     }
 }

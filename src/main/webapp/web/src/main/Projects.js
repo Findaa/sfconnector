@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Panel from 'react-bootstrap/lib/Panel'
 import Button from 'react-bootstrap/lib/Button'
-import ProjectDetails from './ProjectDetails'
+import Tile from '../tile/Tile'
 import axios from 'axios'
 
 export default class Projects extends Component {
@@ -44,7 +44,7 @@ export default class Projects extends Component {
             }
             </div>
             <div className="col-md-6">
-                <ProjectDetails val={this.state.selectedProject}/>
+                <Tile val={this.state.selectedProject}/>
             </div>
         </div>)
     }
