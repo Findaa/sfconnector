@@ -8,12 +8,12 @@ export default class TestComponent extends Component {
     };
 
     componentDidMount() {
-        axios.get("http://localhost:8080/api/uid").then(response => {
-            this.setState({uid: response.data});
-        });
         if(this.state.uid){
             this.setState({uid: "Error loading Id"})
         }
+        axios.get("http://localhost:8080/api/uid").then(response => {
+            this.setState({uid: response.data});
+        });
     }
 
     render() {

@@ -15,21 +15,23 @@ export default class TopBar extends Component {
         axios.get("http://localhost:8080/api/issfauthorized").then(response => {
             this.setState({authOk: response.data});
         });
+        console.log("checked auth and got: " + this.state.authOk)
     };
 
     componentDidMount() {
         if (!this.state.authOk) {
+            console.log("Checked auth did mount");
             this.checkAuthorization();
         }
+    }
+
+    shouldComponentUpdate(nextProps, newState) {
+        return this.props.name === nextProps.name;
     }
 
     logout() {
         axios.post("http://localhost:8080/logout")
     };
-
-    shouldComponentUpdate(nextProps, newState) {
-        return this.props.name === nextProps.name;
-    }
 
     render() {
         return (
@@ -52,11 +54,13 @@ export default class TopBar extends Component {
                         </DropdownButton>
                         : null}
                     <DropdownButton bsStyle='secondary' title='Settings'>
-                        <MenuItem href='/login'>Login</MenuItem>
+                        {!this.state.authOk
+                            ? <MenuItem href='/login'>Login</MenuItem>
+                            : null}
                         <MenuItem href='/calendar'>Calendar</MenuItem>
                         <MenuItem divider/>
-                        {this.state.authOk ?
-                            <MenuItem href="http://localhost:8080/logout">Logout</MenuItem>
+                        {this.state.authOk
+                            ? <MenuItem href="http://localhost:8080/logout">Logout</MenuItem>
                             : null
                         }
                     </DropdownButton>
@@ -64,5 +68,6 @@ export default class TopBar extends Component {
                 </div>
             </div>
         );
+
     }
 }

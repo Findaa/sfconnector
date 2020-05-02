@@ -43,7 +43,10 @@ public class LoginControllerHelper {
 
         try {
             String responseEntity = EntityUtils.toString(res.getEntity());
+
             JSONObject json = new JSONObject(responseEntity);
+
+            System.out.println(json + " : json");
             sv.setAccess_token(json.getString("access_token"));
             sv.setSignature(json.getString("signature"));
             sv.setId(json.getString("id"));

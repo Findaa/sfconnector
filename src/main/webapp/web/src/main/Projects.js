@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Panel from 'react-bootstrap/lib/Panel'
-import Button from 'react-bootstrap/lib/Button'
 import Tile from '../tile/Tile'
 import axios from 'axios'
+import Button from "@material-ui/core/Button";
 
 export default class Projects extends Component {
 
@@ -35,7 +35,7 @@ export default class Projects extends Component {
                         </Panel.Heading>
                         <Panel.Body>
                             <p>{project.descr}</p>
-                            <Button bsStyle="info" onClick={() => this.setState({selectedProject: project.id})}>
+                            <Button variant="outlined" onClick={() => this.setState({selectedProject: project.id})}>
                                 Click to View Details
                             </Button>
                         </Panel.Body>

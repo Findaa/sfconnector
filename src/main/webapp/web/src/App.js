@@ -9,6 +9,7 @@ import LoginForm from "./login/LoginForm";
 import Calendar from "./calendar/Calendar";
 import AboutTemplate from "./topBar/about/AboutTemplate";
 import Members from "./topBar/about/Members";
+import TableComponent from "./table/TableComponent";
 
 
 export default class App extends Component {
@@ -39,6 +40,7 @@ export default class App extends Component {
                                 <Route exact path='/motivation' component={AboutTemplate}/>
                                 <Route exact path='/res' component={AboutTemplate}/>
                                 <Route exact path='/flow' component={AboutTemplate}/>
+                                <Route exact path='/table' component={TableComponent}/>
                             </Switch>
                         </div>
                     </Router>
