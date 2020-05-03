@@ -18,9 +18,10 @@ public class LoginControllerHelper {
     public LoginControllerHelper(SecurityVariables sv) {
         this.sv = sv;
     }
+
     SecurityVariables sv;
 
-    public void postLogin(String code){
+    public void postLogin(String code) {
         sv.setAuthorizedCode(code);
 
         HttpClient httpClient = HttpClients.createDefault();
@@ -37,20 +38,22 @@ public class LoginControllerHelper {
             requestEntity.setContentType("application/x-www-form-urlencoded");
             post.setEntity(requestEntity);
             res = httpClient.execute(post);
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
             String responseEntity = EntityUtils.toString(res.getEntity());
             JSONObject json = new JSONObject(responseEntity);
+            System.out.println(json + " : json");
             sv.setAccess_token(json.getString("access_token"));
             sv.setSignature(json.getString("signature"));
             sv.setId(json.getString("id"));
             sv.setIssued_at(json.getString("issued_at"));
             sv.setSignature(json.getString("signature"));
             sv.setInstance_url(json.getString("instance_url"));
-        } catch(IOException io){
+            json = null;
+        } catch (IOException io) {
             io.printStackTrace();
         }
     }
