@@ -37,17 +37,23 @@ public class RestControllerHelper {
     }
 
     public List<OpportunitySf> getOpportunities(String query){
+        System.out.println("Get Opps method");
         String responseBody = "Loading...";
-        HttpGet get = new HttpGet("https://mcopue-dev-ed.lightning.force.com"
-        + "/v43.0/query/?q=" + query);
+        HttpGet get = new HttpGet("https://mcopue-dev-ed.lightning.force.com/"
+        + "services/data/v43.0/query/?q=" + query);
         get.setHeader("Authorization", "Bearer " + sv.getAccess_token());
         try{
             res = httpClient.execute(get);
+            System.out.println("In try res: " + res.toString());
             JSONObject json = new JSONObject(EntityUtils.toString(res.getEntity()));
             System.out.println(json);
+            System.out.println("JSON Opps: " + json);
 
         } catch (IOException io){
             io.printStackTrace();
+            System.out.println("JSON Opps: Error");
+        } finally {
+            System.out.println("JSON Opps: Finally" );
         }
 
         return null;

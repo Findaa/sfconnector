@@ -11,7 +11,7 @@ export default class TableComponent extends Component {
     }
 
     loadData() {
-        fetch('http://localhost:8080/api/accounts')
+        fetch('http://localhost:8080/api/opportunities')
         // fetch('assets/samplejson/project1.json')
             .then(response => response.json())
             .then(data => {

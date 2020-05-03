@@ -1,43 +1,46 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {PureComponent} from 'react';
 import TopBarButton from "./TopBarButton.js";
-import DropdownButton from "react-bootstrap/lib/DropdownButton";
 import MenuItem from "react-bootstrap/lib/MenuItem";
 import axios from "axios";
+import DropdownButton from "react-bootstrap/lib/DropdownButton";
 
-export default class TopBar extends Component {
+export default class TopBar extends PureComponent {
     state = {
         authOk: false
     };
 
     barRedirect = (endpoint) => console.log("barRedirect: " + endpoint);
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.state.authOk !== nextState.authOk;
+    }
     checkAuthorization = () => {
-        axios.get("http://localhost:8080/api/issfauthorized").then(response => {
-            this.setState({authOk: response.data});
-        });
-        console.log("checked auth and got: " + this.state.authOk)
+        if (!this.state.authOk) {
+            axios.get("http://localhost:8080/api/issfauthorized").then(response => {
+                this.setState({authOk: response.data});
+            });
+            console.log("checked auth and got: " + this.state.authOk)
+            this.setState({state: this.state});
+        }
     };
 
     componentDidMount() {
-        if (!this.state.authOk) {
-            console.log("Checked auth did mount");
-            this.checkAuthorization();
-        }
+        console.log("Checked Auth in Did Mount");
+        this.checkAuthorization();
+        this.setState({state: this.state});
     }
 
-    shouldComponentUpdate(nextProps, newState) {
-        return this.props.name === nextProps.name;
-    }
 
     logout() {
-        axios.post("http://localhost:8080/logout")
+        axios.post("http://localhost:8080/logout");
+        this.setState({state: this.state});
     };
 
     render() {
         return (
             <div>
                 <div>
-                    <DropdownButton bsStyle='secondary' title='About'>
+                    <DropdownButton bsStyle='light' title='About'>
                         <MenuItem href='/motivation'>Project Motivation</MenuItem>
                         <MenuItem href='/members'>Project Members</MenuItem>
                         <MenuItem href='/flow'>Data flow</MenuItem>
@@ -46,14 +49,8 @@ export default class TopBar extends Component {
                         <MenuItem divider/>
                         <MenuItem href='/test' active={true}>Test API after login</MenuItem>
                     </DropdownButton>
-                    {this.state.authOk ?
-                        <DropdownButton bsStyle='secondary' title='Services'>
-                            <MenuItem href='/plot'>Plots</MenuItem>
-                            <MenuItem href='/test'>Tests</MenuItem>
-                            <MenuItem href='/table'>Tables</MenuItem>
-                        </DropdownButton>
-                        : null}
-                    <DropdownButton bsStyle='secondary' title='Settings'>
+
+                    <DropdownButton bsStyle='light' title='Settings'>
                         {!this.state.authOk
                             ? <MenuItem href='/login'>Login</MenuItem>
                             : null}
@@ -64,6 +61,13 @@ export default class TopBar extends Component {
                             : null
                         }
                     </DropdownButton>
+                    {this.state.authOk ?
+                        <DropdownButton bsStyle='light' title='Services'>
+                            <MenuItem href='/plot'>Plots</MenuItem>
+                            <MenuItem href='/test'>Tests</MenuItem>
+                            <MenuItem href='/table'>Tables</MenuItem>
+                        </DropdownButton>
+                        : null}
                     <TopBarButton name="Functional Button Test" action={this.barRedirect} endpoint="/testEndpoint"/>
                 </div>
             </div>
