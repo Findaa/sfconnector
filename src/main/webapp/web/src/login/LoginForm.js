@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import FormGroup from "react-bootstrap/lib/FormGroup";
 import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import FormControl from "react-bootstrap/lib/FormControl";
@@ -18,7 +18,6 @@ export default function LoginForm() {
             .then(handleResponse)
             .then(user => {
                 if (user) {
-
                 }
             })
     };

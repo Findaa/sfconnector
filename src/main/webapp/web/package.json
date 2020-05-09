@@ -4,12 +4,8 @@
   "private": true,
   "homepage": "/",
   "dependencies": {
-    "@material-ui/core": "^4.9.12",
-    "@material-ui/icons": "^4.9.1",
-    "@salesforce-ux/design-system": "^2.11.9",
     "axios": "^0.18.1",
     "bootstrap": "^4.4.1",
-    "material-ui-popup-state": "^1.5.4",
     "node-sass": "^4.14.0",
     "react": "^16.13.0",
     "react-bootstrap": "^0.32.4",
@@ -24,6 +20,7 @@
     "redux": "^4.0.5",
     "sass": "^1.26.5",
     "styled-components": "^5.0.1",
+    "styled-jsx": "^3.2.5",
     "typescript": "^3.8.3"
   },
   "scripts": {

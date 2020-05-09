@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Panel from 'react-bootstrap/lib/Panel'
 import Tile from '../tile/Tile'
 import axios from 'axios'
-import Button from "@material-ui/core/Button";
+import Button from "react-bootstrap/lib/Button";
 
 export default class Projects extends Component {
 
