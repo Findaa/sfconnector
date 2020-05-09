@@ -5,15 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
+
 @Controller
 public class LoginController {
 
     LoginControllerHelper helper;
+
+    @Resource(name = "sessionScopedBean")
     SecurityVariables sv;
 
-    public LoginController(LoginControllerHelper helper, SecurityVariables sv) {
+
+    public LoginController(LoginControllerHelper helper) {
         this.helper = helper;
-        this.sv = sv;
     }
 
     @GetMapping("/login")

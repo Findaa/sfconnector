@@ -22,8 +22,7 @@ export default class Calendar extends Component {
     }
 
     showClock() {
-        this.state.enableClock = !this.state.enableClock;
-        console.log(this.state.enableClock);
+        this.setState({enableClock: !this.state.enableClock});
     };
 
     render() {
@@ -32,14 +31,5 @@ export default class Calendar extends Component {
                 <TimePicker/>
             </div>
         )
-    }
-}
-
-class Popup extends React.Component {
-    render() {
-        return (
-            <div className='popup'>
-            </div>
-        );
     }
 }

@@ -1,9 +1,12 @@
 import React, {Component} from "react";
+import axios from 'axios'
 
 export default class TableComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {data: []}
+        this.state = {
+            data: []
+        }
     }
 
     componentDidMount() {
@@ -12,19 +15,19 @@ export default class TableComponent extends Component {
 
     loadData() {
         fetch('http://localhost:8080/api/opportunities')
-        // fetch('assets/samplejson/project1.json')
             .then(response => response.json())
-            .then(data => {
-                console.log("should print here: ");
-                console.log(data);
-                this.setState({data: data})
+            .then(data =>{
+                console.log("data");
+                console.log(data)
+
             })
             .catch((err) => {
-                console.error(this.props.url, err.toString())
+                console.error(this.props.url, err.toString());
                 console.log("no printerino")
             })
 
     }
+
 
     render() {
         return (

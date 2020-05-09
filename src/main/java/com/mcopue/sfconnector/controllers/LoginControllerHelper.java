@@ -26,7 +26,7 @@ public class LoginControllerHelper {
 
         HttpClient httpClient = HttpClients.createDefault();
         HttpResponse res = null;
-        HttpPost post = new HttpPost("https://login.salesforce.com/services/oauth2/token");
+        HttpPost post = new HttpPost("https://mcopue-dev-ed.my.salesforce.com/services/oauth2/token");
         String requestBody = "grant_type=authorization_code"
                 + "&code=" + sv.getAuthorizedCode()
                 + "&client_id=" + sv.getConsumerKey()
@@ -45,7 +45,6 @@ public class LoginControllerHelper {
         try {
             String responseEntity = EntityUtils.toString(res.getEntity());
             JSONObject json = new JSONObject(responseEntity);
-            System.out.println(json + " : json");
             sv.setAccess_token(json.getString("access_token"));
             sv.setSignature(json.getString("signature"));
             sv.setId(json.getString("id"));

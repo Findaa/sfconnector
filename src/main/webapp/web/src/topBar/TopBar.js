@@ -3,6 +3,7 @@ import TopBarButton from "./TopBarButton.js";
 import MenuItem from "react-bootstrap/lib/MenuItem";
 import axios from "axios";
 import DropdownButton from "react-bootstrap/lib/DropdownButton";
+import _JSXStyle from 'styled-jsx/style'
 
 export default class TopBar extends PureComponent {
     state = {
@@ -14,7 +15,8 @@ export default class TopBar extends PureComponent {
     shouldComponentUpdate(nextProps, nextState) {
         return this.state.authOk !== nextState.authOk;
     }
-    checkAuthorization = () => {
+
+    checkAuthorization() {
         if (!this.state.authOk) {
             axios.get("http://localhost:8080/api/issfauthorized").then(response => {
                 this.setState({authOk: response.data});
@@ -30,7 +32,6 @@ export default class TopBar extends PureComponent {
         this.setState({state: this.state});
     }
 
-
     logout() {
         axios.post("http://localhost:8080/logout");
         this.setState({state: this.state});
@@ -39,8 +40,9 @@ export default class TopBar extends PureComponent {
     render() {
         return (
             <div>
-                <div>
-                    <DropdownButton bsStyle='light' title='About'>
+                <div className="jsx-button">
+                <_JSXStyle id="button">{`DropdownButton.jsx-123 {color: background: #117a8b;}`}</_JSXStyle>
+                    <DropdownButton title='About' bsStyle='light'>
                         <MenuItem href='/motivation'>Project Motivation</MenuItem>
                         <MenuItem href='/members'>Project Members</MenuItem>
                         <MenuItem href='/flow'>Data flow</MenuItem>
