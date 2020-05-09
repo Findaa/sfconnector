@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class RestControllerHelper {
-    public RestControllerHelper(SecurityVariables sv) {
+public class RestApiHelper {
+    public RestApiHelper(SecurityVariables sv) {
         this.sv = sv;
     }
     SecurityVariables sv;
