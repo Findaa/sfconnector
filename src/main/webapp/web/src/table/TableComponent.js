@@ -1,40 +1,127 @@
-import React, {Component} from "react";
-import axios from 'axios'
+import ReactTable, {useTable} from "react-table";
+import {useEffect, useState} from "react";
+import styled from 'styled-components'
+import * as React from "react";
 
-export default class TableComponent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: []
+const Styles = styled.div`
+  padding: 1rem;
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
         }
+      }
     }
-
-    componentDidMount() {
-        this.loadData()
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      :last-child {
+        border-right: 0;
+      }
     }
+  }
+`;
 
-    loadData() {
+function Table({columns, data}) {
+    // Use the state and functions returned from useTable to build your UI
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+    } = useTable({
+        columns,
+        data,
+    });
+
+    return (
+        <table {...getTableProps()}>
+            <thead>
+            {headerGroups.map(headerGroup => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map(column => (
+                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                    ))}
+                </tr>
+            ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+            {rows.map((row, i) => {
+                prepareRow(row);
+                return (
+                    <tr {...row.getRowProps()}>
+                        {row.cells.map(cell => {
+                            return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                        })}
+                    </tr>
+                )
+            })}
+            </tbody>
+        </table>
+    )
+}
+
+export default function TableComponent() {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        if (!data) {
+            loadData()
+        }
+    });
+
+    function loadData() {
         fetch('http://localhost:8080/api/opportunities')
             .then(response => response.json())
-            .then(data =>{
+            .then(data => {
+                delete data['attributes'];
                 console.log("data");
-                console.log(data)
+                console.log(data);
+                setData(data);
 
             })
             .catch((err) => {
                 console.error(this.props.url, err.toString());
                 console.log("no printerino")
             })
-
     }
 
-
-    render() {
-        return (
-            <div>
-                Data: {this.state.data}
-            </div>
-        )
-    }
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'Info',
+                columns: [
+                    {
+                        Header: 'Age',
+                        accessor: 'Id',
+                    },
+                    {
+                        Header: 'Visits',
+                        accessor: 'Name',
+                    },
+                    {
+                        Header: 'Status',
+                        accessor: 'Amount',
+                    },
+                    {
+                        Header: 'Profile Progress',
+                        accessor: 'StageName',
+                    },
+                ],
+            },
+        ],
+        []
+    );
+    return (
+        <Styles>
+            <Table columns={columns} data={data}/>
+        </Styles>
+    )
 
 }
