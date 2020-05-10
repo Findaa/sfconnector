@@ -34,7 +34,6 @@ public class RestApiHelper {
         System.out.println("Get Opps");
         HttpGet get = new HttpGet("https://mcopue-dev-ed.lightning.force.com/" + "services/data/v43.0/query?q=" + query);
         get.setHeader("Authorization", "Bearer " + sv.getAccess_token());
-
         try {
             res = httpClient.execute(get);
             JSONArray filtered = new JSONObject(EntityUtils.toString(res.getEntity())).getJSONArray("records");
