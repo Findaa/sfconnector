@@ -25,7 +25,7 @@ public class RestApiHelper {
     HttpResponse res;
 
     @Getter
-    private final String opportunityQuery = "SELECT+Id,Name+from+Opportunity";
+    private final String opportunityQuery = "SELECT+Id,Name,Amount,CloseDate,StageName+from+Opportunity";
 
     public String getOpportunities(String query) {
         System.out.println("Get Opps");
@@ -35,17 +35,7 @@ public class RestApiHelper {
         try {
             res = httpClient.execute(get);
             JSONArray filtered = new JSONObject(EntityUtils.toString(res.getEntity())).getJSONArray("records");
-            System.out.println("Filtered: " + filtered);
-            StringBuilder returnStr = new StringBuilder("[");
-            for (int n = 0; n < filtered.length(); n++) {
-                String a = String.valueOf(filtered.get(n));
-                System.out.println("Json string: " + a.substring(106));
-                returnStr.append("{").append(a.substring(106)).append(",");
-            }
-            returnStr.append("]");
-            returnStr.deleteCharAt(returnStr.length() - 2);
-            System.out.println("Ret str: " + returnStr);
-            return returnStr.toString();
+            return filtered.toString();
         } catch (IOException io) {
             io.printStackTrace();
             System.out.println("JSON Opps: Error");

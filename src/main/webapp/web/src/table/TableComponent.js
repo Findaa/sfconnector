@@ -1,9 +1,48 @@
-import ReactTable, {useTable} from "react-table";
+import ReactTable, {useTable, useSortBy} from "react-table";
 import {useEffect, useState} from "react";
-import styled from 'styled-components'
 import * as React from "react";
+import CssBaseline from '@material-ui/core/CssBaseline'
+import axios from 'axios';
+import styled from 'styled-components'
+import Button from "@material-ui/core/Button";
+import SaveIcon from '@material-ui/icons/Save';
+import MaUTable from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
 
-const Styles = styled.div`
+export default function TableComponent() {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        if (data.length < 10) loadData()
+    });
+
+    function loadData() {
+        fetch('http://localhost:8080/api/opportunities')
+            .then(response => response.json())
+            .then(data => {
+                delete data['attributes'];
+                console.log("data");
+                console.log(data);
+                setData(data);
+
+            })
+            .catch((err) => {
+                console.error(this.props.url, err.toString());
+                console.log("no printerino")
+            })
+    }
+
+    const submitToAzure = () => {
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/api/overwrite',
+            data: data
+        })
+    };
+
+    const Styles = styled.div`
   padding: 1rem;
   table {
     border-spacing: 0;
@@ -27,91 +66,102 @@ const Styles = styled.div`
     }
   }
 `;
+    function Table({ columns, data }) {
+        const {
+            getTableProps,
+            getTableBodyProps,
+            headerGroups,
+            rows,
+            prepareRow,
+        } = useTable(
+            {
+                columns,
+                data,
+            },
+            useSortBy
+        )
 
-function Table({columns, data}) {
-    // Use the state and functions returned from useTable to build your UI
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = useTable({
-        columns,
-        data,
-    });
+        // We don't want to render all 2000 rows for this example, so cap
+        // it at 20 for this use case
+        const firstPageRows = rows.slice(0, 20)
 
-    return (
-        <table {...getTableProps()}>
-            <thead>
-            {headerGroups.map(headerGroup => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map(column => (
-                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+        return (
+            <>
+                <table {...getTableProps()}>
+                    <thead>
+                    {headerGroups.map(headerGroup => (
+                        <tr {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.map(column => (
+                                // Add the sorting props to control sorting. For this example
+                                // we can add them into the header props
+                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                    {column.render('Header')}
+                                    {/* Add a sort direction indicator */}
+                                    <span>
+                    {column.isSorted
+                        ? column.isSortedDesc
+                            ? ' 🔽'
+                            : ' 🔼'
+                        : ''}
+                  </span>
+                                </th>
+                            ))}
+                        </tr>
                     ))}
-                </tr>
-            ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
-                prepareRow(row);
-                return (
-                    <tr {...row.getRowProps()}>
-                        {row.cells.map(cell => {
-                            return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                        })}
-                    </tr>
-                )
-            })}
-            </tbody>
-        </table>
-    )
-}
-
-export default function TableComponent() {
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        if (!data) {
-            loadData()
-        }
-    });
-
-    function loadData() {
-        fetch('http://localhost:8080/api/opportunities')
-            .then(response => response.json())
-            .then(data => {
-                delete data['attributes'];
-                console.log("data");
-                console.log(data);
-                setData(data);
-
-            })
-            .catch((err) => {
-                console.error(this.props.url, err.toString());
-                console.log("no printerino")
-            })
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                    {firstPageRows.map(
+                        (row, i) => {
+                            prepareRow(row);
+                            return (
+                                <tr {...row.getRowProps()}>
+                                    {row.cells.map(cell => {
+                                        return (
+                                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                        )
+                                    })}
+                                </tr>
+                            )}
+                    )}
+                    </tbody>
+                </table>
+                <br />
+                <div>Showing the first 20 results of {rows.length} rows</div>
+            </>
+        )
     }
 
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Info',
+                Header: 'Opportunities',
+                showPaginationTop: true,
+                showPaginationBottom: false,
+                showPageSizeOption: false,
                 columns: [
                     {
-                        Header: 'Age',
+                        Header: 'ID',
                         accessor: 'Id',
+                        maxWidth: 100,
+                        minWidth: 100
                     },
                     {
-                        Header: 'Visits',
+                        Header: 'Name',
                         accessor: 'Name',
+                        maxWidth: 100,
+                        minWidth: 100
                     },
                     {
-                        Header: 'Status',
+                        Header: 'Amount (value)',
                         accessor: 'Amount',
+                        maxWidth: 100,
+                        minWidth: 100
                     },
                     {
-                        Header: 'Profile Progress',
+                        Header: 'Stage',
                         accessor: 'StageName',
+                        maxWidth: 100,
+                        minWidth: 100
                     },
                 ],
             },
@@ -119,9 +169,20 @@ export default function TableComponent() {
         []
     );
     return (
-        <Styles>
-            <Table columns={columns} data={data}/>
-        </Styles>
+        <div>
+            <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                startIcon={<SaveIcon/>}
+                onClick={submitToAzure}
+            >
+                Save
+            </Button>
+            <Styles>
+                <Table columns={columns} data={data} />
+            </Styles>
+        </div>
     )
 
 }
