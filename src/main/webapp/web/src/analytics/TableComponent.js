@@ -1,28 +1,21 @@
 import ReactTable, {useTable, useSortBy} from "react-table";
 import {useEffect, useState} from "react";
 import * as React from "react";
-import CssBaseline from '@material-ui/core/CssBaseline'
-import axios from 'axios';
 import styled from 'styled-components'
-import Button from "@material-ui/core/Button";
-import SaveIcon from '@material-ui/icons/Save';
-import MaUTable from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import {Link} from "react-router-dom";
 
 export default function TableComponent() {
     const [data, setData] = useState([]);
+    const [componentType, setComponentType] = useState("opp");
     useEffect(() => {
-        if (data.length < 10) loadData()
+        if (data.length < 10) loadDataOpps()
     });
 
-    function loadData() {
+    function loadDataOpps() {
         fetch('http://localhost:8080/api/opportunities')
             .then(response => response.json())
             .then(data => {
-                delete data['attributes'];
+                // delete data['attributes'];
                 console.log("data");
                 console.log(data);
                 setData(data);
@@ -33,14 +26,6 @@ export default function TableComponent() {
                 console.log("no printerino")
             })
     }
-
-    const submitToAzure = () => {
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/api/overwrite',
-            data: data
-        })
-    };
 
     const Styles = styled.div`
   padding: 1rem;
@@ -66,7 +51,8 @@ export default function TableComponent() {
     }
   }
 `;
-    function Table({ columns, data }) {
+
+    function Table({columns, data}) {
         const {
             getTableProps,
             getTableBodyProps,
@@ -79,11 +65,8 @@ export default function TableComponent() {
                 data,
             },
             useSortBy
-        )
-
-        // We don't want to render all 2000 rows for this example, so cap
-        // it at 20 for this use case
-        const firstPageRows = rows.slice(0, 20)
+        );
+        const firstPageRows = rows.slice(0, 20);
 
         return (
             <>
@@ -121,68 +104,69 @@ export default function TableComponent() {
                                         )
                                     })}
                                 </tr>
-                            )}
+                            )
+                        }
                     )}
                     </tbody>
                 </table>
-                <br />
+                <br/>
                 <div>Showing the first 20 results of {rows.length} rows</div>
             </>
         )
     }
 
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'Opportunities',
-                showPaginationTop: true,
-                showPaginationBottom: false,
-                showPageSizeOption: false,
-                columns: [
-                    {
-                        Header: 'ID',
-                        accessor: 'Id',
-                        maxWidth: 100,
-                        minWidth: 100
-                    },
-                    {
-                        Header: 'Name',
-                        accessor: 'Name',
-                        maxWidth: 100,
-                        minWidth: 100
-                    },
-                    {
-                        Header: 'Amount (value)',
-                        accessor: 'Amount',
-                        maxWidth: 100,
-                        minWidth: 100
-                    },
-                    {
-                        Header: 'Stage',
-                        accessor: 'StageName',
-                        maxWidth: 100,
-                        minWidth: 100
-                    },
-                ],
-            },
-        ],
-        []
-    );
-    return (
-        <div>
-            <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                startIcon={<SaveIcon/>}
-                onClick={submitToAzure}
-            >
-                Save
-            </Button>
-            <Styles>
-                <Table columns={columns} data={data} />
-            </Styles>
-        </div>
-    )
+        const columns = React.useMemo(
+            () => [
+                {
+                    Header: 'Opportunities',
+                    showPaginationTop: true,
+                    showPaginationBottom: false,
+                    showPageSizeOption: false,
+                    columns: [
+                        {
+                            Header: 'ID',
+                            accessor: 'Id',
+                            maxWidth: 100,
+                            minWidth: 100
+                        },
+                        {
+                            Header: 'Name',
+                            accessor: 'Name',
+                            maxWidth: 100,
+                            minWidth: 100
+                        },
+                        {
+                            Header: 'Amount (value)',
+                            accessor: 'Amount',
+                            maxWidth: 100,
+                            minWidth: 100
+                        },
+                        {
+                            Header: 'Stage',
+                            accessor: 'StageName',
+                            maxWidth: 100,
+                            minWidth: 100
+                        },
+                        {
+                            Header: 'Url',
+                            accessor: 'attributes.url',
+                            maxWidth: 100,
+                            minWidth: 100,
+                            render: ({ row }) => (<Link to={{ pathname: `google.pl` }}>{row.name}</Link>)
+                        },
+                    ]
+                },
+            ],
+        );
+
+return (
+    <center>
+    <div>
+        <Styles>
+            <Table columns={columns} data={data}/>
+        </Styles>
+    </div>
+    </center>
+)
 
 }

@@ -1,20 +1,21 @@
 package com.mcopue.sfconnector.controllers;
 
 import com.mcopue.sfconnector.services.State;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
 @SessionScope
 public class RestApi {
-    public RestApi(State state, RestApiHelper helper) {
-        this.state = state;
+    public RestApi(RestApiHelper helper) {
         this.helper = helper;
     }
 
-    State state;
     RestApiHelper helper;
 
     @GetMapping("/uid")
@@ -36,5 +37,20 @@ public class RestApi {
     @ResponseBody
     public Boolean checkIfSalesforceIsAuthorised(){
         return helper.getAccountName("0013X00002aMc2cQAC").length() == 35;
+    }
+
+    @GetMapping("/forex")
+    @ResponseBody
+    public String getForexData(){
+        System.out.println("returning forex data: \n" + helper.getForexData());
+
+        return helper.getForexData().toString();
+    }
+
+    @RequestMapping("/searchforexdate")
+    @ResponseBody
+    public String getForexDay(@RequestBody String date){
+        System.out.println("Rest date: " + date);
+        return helper.getForexDay(date).toString();
     }
 }
