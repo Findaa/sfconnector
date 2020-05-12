@@ -13,19 +13,19 @@ export default function TableComponent() {
 
     function loadDataOpps() {
         fetch('http://localhost:8080/api/opportunities')
-            .then(response => response.json())
-            .then(data => {
-                // delete data['attributes'];
-                console.log("data");
-                console.log(data);
-                setData(data);
+        .then(response => response.json())
+        .then(data => {
+            // delete data['attributes'];
+            console.log("data");
+            console.log(data);
+            setData(data);
 
-            })
-            .catch((err) => {
-                console.error(this.props.url, err.toString());
-                console.log("no printerino")
-            })
-    }
+        })
+        .catch((err) => {
+            console.error(this.props.url, err.toString());
+            console.log("no printerino")
+        })
+}
 
     const Styles = styled.div`
   padding: 1rem;

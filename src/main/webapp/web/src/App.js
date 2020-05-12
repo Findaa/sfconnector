@@ -4,12 +4,12 @@ import './main/App.css'
 import Projects from './main/Projects'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import TopBar from "./topBar/TopBar"
-import TestComponent from "./main/TestComponent"
 import LoginForm from "./login/LoginForm"
-import Calendar from "./calendar/Calendar"
 import AboutTemplate from "./topBar/about/AboutTemplate"
 import Members from "./topBar/about/Members"
 import AnalyticsRouter from "./analytics/AnalyticsRouter"
+import {Calendar} from "./calendar/Calendar";
+import {TestComponent} from "./main/TestComponent";
 
 
 export default class App extends Component {

@@ -1,4 +1,5 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
+// @ts-ignore
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,7 +32,7 @@ export default function TimePicker() {
             <div className="form-group">
                 <DatePicker
                     selected={startDate}
-                    onChange={date => {
+                    onChange={(date: any) => {
                         setStartDate(date)
                     }
                     }

@@ -1,30 +1,29 @@
-import React, {useEffect, useState} from 'react'
-import Calendar from "../calendar/Calendar"
-import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts';
+import {useEffect, useState} from 'react'
+import * as React from 'react';
+// @ts-ignore
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,}  from 'recharts';
+import {Calendar} from "../calendar/Calendar";
 
-export default function ChartsComponent() {
-    let [chart, setChart] = useState([]);
+export const Charts: React.FunctionComponent = (props: any) => {
+    let [chart, setChart] = useState([])
     let loadForex = () => {
         fetch('http://localhost:8080/api/forex')
             .then(response => response.json())
             .then(data => {
                 // delete data['attributes'];
-                console.log("data");
-                console.log(data);
-                setChart(data);
-
+                console.log("data")
+                console.log(data)
+                setChart(data)
             })
             .catch((err) => {
-                console.error(this.props.url, err.toString());
+                console.error(props.url, err.toString())
                 console.log("no printerino")
             })
     };
 
     useEffect(() => {
         if (chart.length < 1) loadForex()
-    });
+    })
 
     return (
         <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
