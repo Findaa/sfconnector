@@ -7,8 +7,8 @@ export default function AboutTemplate() {
 
 
     useEffect(() => {
-            let parts = window.location.href.split('/');
-            let definition = parts.pop() || parts.pop();
+            let parts: string[] = window.location.href.split('/');
+            let definition: any = parts.pop() || parts.pop();
 
             if (definition.toString() === "motivation") setTitleId(4);
             else if (definition.toString() === 'flow') setTitleId(5);

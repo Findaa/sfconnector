@@ -5,7 +5,6 @@ import axios from 'axios'
 import Button from "react-bootstrap/lib/Button";
 
 export default class Projects extends Component {
-
     constructor(props) {
         super(props);
         this.state = {

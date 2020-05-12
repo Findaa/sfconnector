@@ -4,7 +4,7 @@ import * as React from "react";
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
 
-export default function TableComponent() {
+export default function TableComponent(props) {
     const [data, setData] = useState([]);
     const [componentType, setComponentType] = useState("opp");
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function TableComponent() {
 
         })
         .catch((err) => {
-            console.error(this.props.url, err.toString());
+            console.error(props.url, err.toString());
             console.log("no printerino")
         })
 }
