@@ -18,7 +18,7 @@ export default class App extends Component {
         console.log("Host URL" + process.env.PUBLIC_URL)
         return (
             <div>
-                <div>
+                <div >
                     <TopBar/>
                 </div>
                 <div>

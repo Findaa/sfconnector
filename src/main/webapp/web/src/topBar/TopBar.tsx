@@ -6,6 +6,8 @@ import axios from "axios";
 import DropdownButton from "react-bootstrap/lib/DropdownButton";
 // @ts-ignore
 import _JSXStyle from 'styled-jsx/style'
+// @ts-ignore
+import Center from 'react-center';
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
@@ -29,55 +31,54 @@ export default function TopBar() {
     const logout = () => {
         setAuthOk(false);
     };
-    
+
     return (
 
-        <div style={{
-            position: 'absolute', left: '50%', top: '50%',
-            transform: 'translate(-50%, -50%)'
-        }}>
-            <div className="jsx-button">
-                <_JSXStyle id="button">{`DropdownButton.jsx-123 {color: background: #117a8b;}`}</_JSXStyle>
-                <ButtonGroup size="large" color="primary" aria-label="large outlined primary button group">
-                    <Button
-                        size="small">
-                        <DropdownButton title='About'>
-                            <MenuItem href='/motivation'>Project Motivation</MenuItem>
-                            <MenuItem href='/members'>Project Members</MenuItem>
-                            <MenuItem href='/flow'>Data flow</MenuItem>
-                            <MenuItem href='/res'>Resources</MenuItem>
-                            <MenuItem href='/projects'>Test template</MenuItem>
-                            <MenuItem divider/>
-                            <MenuItem href='/test' active={true}>Test API after login</MenuItem>
-                        </DropdownButton>
-                    </Button>
-
-                    <Button
-                        size="small">
-                        <DropdownButton bsStyle='light' title='Settings'>
-                            {!authOk
-                                ? <MenuItem href='/login'>Login</MenuItem>
-                                : null}
-                            <MenuItem href='/calendar'>Calendar</MenuItem>
-                            <MenuItem divider/>
-                            {authOk
-                                ? <MenuItem href="http://localhost:8080/logout" onClick={logout}>Logout</MenuItem>
-                                : null
-                            }
-                        </DropdownButton>
-                    </Button>
-                    <Button
-                        size="small">
-                        {authOk ?
-                            <DropdownButton bsStyle='light' title='Services'>
-                                <MenuItem href='/plot'>Plots</MenuItem>
-                                <MenuItem href='/test'>Tests</MenuItem>
-                                <MenuItem href='/analytics'>Tables</MenuItem>
+        <div>
+            <Center>
+                <div className="jsx-button">
+                    <_JSXStyle id="button">{`DropdownButton.jsx-123 {color: background: #117a8b;}`}</_JSXStyle>
+                    <ButtonGroup size="large" color="primary" aria-label="large outlined primary button group">
+                        <Button
+                            size="small">
+                            <DropdownButton title='About'>
+                                <MenuItem href='/motivation'>Project Motivation</MenuItem>
+                                <MenuItem href='/members'>Project Members</MenuItem>
+                                <MenuItem href='/flow'>Data flow</MenuItem>
+                                <MenuItem href='/res'>Resources</MenuItem>
+                                <MenuItem href='/projects'>Test template</MenuItem>
+                                <MenuItem divider/>
+                                <MenuItem href='/test' active={true}>Test API after login</MenuItem>
                             </DropdownButton>
-                            : null}
-                    </Button>
-                </ButtonGroup>
-            </div>
+                        </Button>
+
+                        <Button
+                            size="small">
+                            <DropdownButton bsStyle='light' title='Settings'>
+                                {!authOk
+                                    ? <MenuItem href='/login'>Login</MenuItem>
+                                    : null}
+                                <MenuItem href='/calendar'>Calendar</MenuItem>
+                                <MenuItem divider/>
+                                {authOk
+                                    ? <MenuItem href="http://localhost:8080/logout" onClick={logout}>Logout</MenuItem>
+                                    : null
+                                }
+                            </DropdownButton>
+                        </Button>
+                        <Button
+                            size="small">
+                            {authOk ?
+                                <DropdownButton bsStyle='light' title='Services'>
+                                    <MenuItem href='/plot'>Plots</MenuItem>
+                                    <MenuItem href='/test'>Tests</MenuItem>
+                                    <MenuItem href='/analytics'>Tables</MenuItem>
+                                </DropdownButton>
+                                : null}
+                        </Button>
+                    </ButtonGroup>
+                </div>
+            </Center>
         </div>
     );
 }
