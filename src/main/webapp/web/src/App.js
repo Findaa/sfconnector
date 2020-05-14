@@ -3,22 +3,24 @@ import React, {Component} from 'react'
 import './main/App.css'
 import Projects from './main/Projects'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
-import TopBar from "./topBar/TopBar"
 import LoginForm from "./login/LoginForm"
 import Members from "./topBar/about/Members"
 import AnalyticsRouter from "./analytics/AnalyticsRouter"
 import {Calendar} from "./calendar/Calendar";
 import {TestComponent} from "./main/TestComponent";
 import AboutTemplate from "./topBar/about/AboutTemplate";
+import TopBar from "./topBar/TopBar";
+import {connect} from "react-redux";
+
+class App extends Component {
 
 
-export default class App extends Component {
 
     render() {
         console.log("Host URL" + process.env.PUBLIC_URL)
         return (
             <div>
-                <div >
+                <div>
                     <TopBar/>
                 </div>
                 <div>
@@ -47,3 +49,18 @@ export default class App extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        authOk: state.authOk
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onVerifyLogin: () => dispatch({type: 'VERIFY_AUTH'}),
+        logout: () => dispatch({type: 'LOGOUT'})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 
 export default function TableComponent(props) {
     const [data, setData] = useState([]);
-    const [componentType, setComponentType] = useState("opp");
     useEffect(() => {
         if (data.length < 10) loadDataOpps()
     });

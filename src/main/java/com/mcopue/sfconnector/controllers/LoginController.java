@@ -35,7 +35,8 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String logout(){
-        sv.setAccess_token("");
+        sv.setAccess_token("121");
+        System.out.println("logout controller");
         return "redirect:http://localhost:3000";
     }
 }
