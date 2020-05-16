@@ -2,6 +2,7 @@ import axios from "axios";
 
 const initialState = {
     authOk: false,
+    data: []
 }
 
 
@@ -21,9 +22,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 authOk: false
             }
+        case 'SAVE_DATA':
+            console.log('Save data action')
+            console.log('Data in action: ' + action.data)
+            return {
+                ...state,
+                data: action.data
+            }
     }
     return state;
 }
-
+    
 export default reducer;
-

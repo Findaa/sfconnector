@@ -3,7 +3,7 @@ import 'react-calendar/dist/Calendar.css';
 import * as React from 'react'
 import TimePicker from "./TimePicker";
 
-export const Calendar = () => {
+export const Calendar = (props: any) => {
 
     let [date, setDate] = useState(new Date())
     let [enableClock, setEnableClock] = useState(false)
@@ -22,7 +22,7 @@ export const Calendar = () => {
 
     return (
         <div>
-            <TimePicker/>
+            <TimePicker func={props.func}/>
         </div>
     )
 }

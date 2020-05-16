@@ -15,6 +15,7 @@ import {connect} from 'react-redux'
 
 function TopBar(props: any) {
     const [authOk, setAuthOk] = useState(false);
+    let [open, setOpen] = useState(false);
     useEffect(() => {
             console.log("Checked Auth in Did Mount");
             if (props.authOk === false) checkAuthorization(authOk);
@@ -37,6 +38,10 @@ function TopBar(props: any) {
         setAuthOk(false);
         props.logout()
     };
+
+    const openAbout = () => {
+        setOpen(!open)
+    }
 
     const unauthorizedMenu = <div>
         <_JSXStyle id="button">{`DropdownButton.jsx-123 {color: background: #117a8b;}`}</_JSXStyle>
