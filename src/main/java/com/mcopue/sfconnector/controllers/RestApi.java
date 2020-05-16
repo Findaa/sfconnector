@@ -51,6 +51,7 @@ public class RestApi {
     @ResponseBody
     public String getForexDay(@RequestBody String date){
         System.out.println("Rest date: " + date);
-        return helper.getForexDay(date).toString();
+        helper.getForexDay(date);
+        return "redirect:http://localhost:3000/analytics";
     }
 }

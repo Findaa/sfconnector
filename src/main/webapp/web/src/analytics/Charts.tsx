@@ -13,6 +13,7 @@ export const Charts: React.FunctionComponent = (props: any) => {
                 // delete data['attributes'];
                 console.log("data")
                 console.log(data)
+                data.sort((a: any, b: any) => a.date.localeCompare(b.date));
                 setChart(data)
             })
             .catch((err) => {
@@ -23,11 +24,12 @@ export const Charts: React.FunctionComponent = (props: any) => {
 
     useEffect(() => {
         if (chart.length < 1) loadForex()
+
     })
 
     return (
         <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
-            <Calendar />
+            <Calendar func={loadForex}/>
             <LineChart
                 width={900}
                 height={600}

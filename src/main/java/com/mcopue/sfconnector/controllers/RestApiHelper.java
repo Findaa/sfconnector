@@ -34,7 +34,6 @@ public class RestApiHelper {
         System.out.println("Get Opps");
         HttpGet get = new HttpGet("https://mcopue-dev-ed.lightning.force.com/" + "services/data/v43.0/query?q=" + query);
         get.setHeader("Authorization", "Bearer " + sv.getAccess_token());
-
         try {
             res = httpClient.execute(get);
             JSONArray filtered = new JSONObject(EntityUtils.toString(res.getEntity())).getJSONArray("records");
@@ -69,7 +68,7 @@ public class RestApiHelper {
         return state.getStateList();
     }
 
-    public List<String> getForexDay(String date) {
+    public void getForexDay(String date) {
         String month = date.substring(9, 12);
         String day = date.substring(13, 16);
         String year = date.substring(16, 20);
@@ -107,7 +106,5 @@ public class RestApiHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return state.getStateList();
     }
 }

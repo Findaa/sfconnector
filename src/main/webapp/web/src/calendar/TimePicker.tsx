@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function TimePicker() {
+export default function TimePicker(props: any) {
     const [startDate, setStartDate] = useState(new Date());
     let [data, setData] = useState([])
 
@@ -23,8 +23,11 @@ export default function TimePicker() {
             .then(response => response.json())
             .then(data => {
                 setData(data)
+
             })
         console.log(data)
+        props.func()
+
     }
 
 

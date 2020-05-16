@@ -3,29 +3,31 @@ import {useEffect, useState} from "react";
 import * as React from "react";
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
+// @ts-ignore
+import {connect} from 'react-redux'
 
-export default function TableComponent(props) {
+function TableComponent(props) {
     const [data, setData] = useState([]);
-    const [componentType, setComponentType] = useState("opp");
     useEffect(() => {
         if (data.length < 10) loadDataOpps()
+        props.saveDataToRedux(data)
     });
 
     function loadDataOpps() {
         fetch('http://localhost:8080/api/opportunities')
-        .then(response => response.json())
-        .then(data => {
-            // delete data['attributes'];
-            console.log("data");
-            console.log(data);
-            setData(data);
+            .then(response => response.json())
+            .then(data => {
+                // delete data['attributes'];
+                console.log("data");
+                console.log(data);
+                setData(data);
 
-        })
-        .catch((err) => {
-            console.error(props.url, err.toString());
-            console.log("no printerino")
-        })
-}
+            })
+            .catch((err) => {
+                console.error(props.url, err.toString());
+                console.log("no printerino")
+            })
+    }
 
     const Styles = styled.div`
   padding: 1rem;
@@ -115,58 +117,73 @@ export default function TableComponent(props) {
         )
     }
 
-        const columns = React.useMemo(
-            () => [
-                {
-                    Header: 'Opportunities',
-                    showPaginationTop: true,
-                    showPaginationBottom: false,
-                    showPageSizeOption: false,
-                    columns: [
-                        {
-                            Header: 'ID',
-                            accessor: 'Id',
-                            maxWidth: 100,
-                            minWidth: 100
-                        },
-                        {
-                            Header: 'Name',
-                            accessor: 'Name',
-                            maxWidth: 100,
-                            minWidth: 100
-                        },
-                        {
-                            Header: 'Amount (value)',
-                            accessor: 'Amount',
-                            maxWidth: 100,
-                            minWidth: 100
-                        },
-                        {
-                            Header: 'Stage',
-                            accessor: 'StageName',
-                            maxWidth: 100,
-                            minWidth: 100
-                        },
-                        {
-                            Header: 'Url',
-                            accessor: 'attributes.url',
-                            maxWidth: 100,
-                            minWidth: 100,
-                            render: ({ row }) => (<Link to={{ pathname: `google.pl` }}>{row.name}</Link>)
-                        },
-                    ]
-                },
-            ],
-        );
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'Opportunities',
+                showPaginationTop: true,
+                showPaginationBottom: false,
+                showPageSizeOption: false,
+                columns: [
+                    {
+                        Header: 'ID',
+                        accessor: 'Id',
+                        maxWidth: 100,
+                        minWidth: 100
+                    },
+                    {
+                        Header: 'Name',
+                        accessor: 'Name',
+                        maxWidth: 100,
+                        minWidth: 100
+                    },
+                    {
+                        Header: 'Amount (value)',
+                        accessor: 'Amount',
+                        maxWidth: 100,
+                        minWidth: 100
+                    },
+                    {
+                        Header: 'Stage',
+                        accessor: 'StageName',
+                        maxWidth: 100,
+                        minWidth: 100
+                    },
+                    {
+                        Header: 'Url',
+                        accessor: 'attributes.url',
+                        maxWidth: 100,
+                        minWidth: 100,
+                        render: ({row}) => (<Link to={{pathname: `google.pl`}}>{row.name}</Link>)
+                    },
+                ]
+            },
+        ],
+    );
 
-return (
-    <center>
-    <div>
-        <Styles>
-            <Table columns={columns} data={data}/>
-        </Styles>
-    </div>
-    </center>
-)
-
+    return (
+        <center>
+            <div>
+                <Styles>
+                    <Table columns={columns} data={data}/>
+                </Styles>
+            </div>
+        </center>
+    )
 }
+
+const mapStateToProps = state => {
+    return {
+        data: state.data
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        saveDataToRedux: data => {
+            dispatch({type: 'SAVE_DATA', data: data})
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableComponent)
