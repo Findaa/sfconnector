@@ -32,13 +32,10 @@ class App extends Component {
                                     <Redirect to="/projects"/>
                                 )}/>
 
-                                <Route exact path='/projects' component={Projects}/>
                                 <Route exact path='/login' component={LoginForm}/>
-                                <Route exact path='/calendar' component={Calendar}/>
                                 <Route exact path='/test' component={TestComponent}/>
                                 <Route exact path='/members' component={Members}/>
                                 <Route exact path='/motivation' component={AboutTemplate}/>
-                                <Route exact path='/res' component={AboutTemplate}/>
                                 <Route exact path='/flow' component={AboutTemplate}/>
                                 <Route exact path='/analytics' component={AnalyticsRouter}/>
                             </Switch>

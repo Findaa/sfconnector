@@ -1,5 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
-import Tile from "../tile/Tile";
+import React, {useEffect, useState} from 'react';
 import axios from 'axios'
 
 export const TestComponent = () => {
@@ -16,11 +15,7 @@ export const TestComponent = () => {
 
     return (
         <div>
-            <Tile val='1'/>
-            <Tile val='2'/>
-
             User ID: {uid}
-
         </div>
     );
 }
