@@ -5,11 +5,11 @@ import EuroIcon from "@material-ui/icons/Euro"
 import CameraIcon from "@material-ui/icons/Camera"
 import SaveIcon from "@material-ui/icons/Save"
 import {makeStyles} from "@material-ui/core/styles"
-import {Charts} from "./Charts"
+import Charts from "./Charts"
 import * as React from 'react'
 import TableComponent from './TableComponent';
-// @ts-ignore
-import { CSVLink, CSVDownload } from "react-csv"
+import {CSVLink, CSVDownload} from "react-csv"
+import {connect} from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function AnalyticsRouter(props: any) {
+function AnalyticsRouter(props: any) {
     let [endpoint, setEndpoint] = useState("forex")
 
 
@@ -59,13 +59,22 @@ export default function AnalyticsRouter(props: any) {
                         onClick={opps}>Sf Opps</Button>
                     <Button
                         size="small"
-                        startIcon={<SaveIcon/>}
-                        />
-                        {/*Todo: Implement this button*/}
-                    {/*><CSVLink data={}>Download me</CSVLink>;</Button>*/}
+                        startIcon={<SaveIcon/>}>
+                        <CSVLink data={props.data}>Zapisz csv</CSVLink>
+                    </Button>
                 </ButtonGroup>
+
             </div>
             {tableComponent}
         </div>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        data: state.data
+    }
+}
+
+
+export default connect(mapStateToProps)(AnalyticsRouter)
