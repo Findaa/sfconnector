@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-// @ts-ignore
 import Panel from "react-bootstrap/lib/Panel"
 import Ryj from './ryj.png'
 

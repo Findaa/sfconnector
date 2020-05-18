@@ -1,16 +1,11 @@
 import React, {useEffect, useState} from 'react';
-// @ts-ignore
 import MenuItem from "react-bootstrap/lib/MenuItem";
 import axios from "axios";
-// @ts-ignore
 import DropdownButton from "react-bootstrap/lib/DropdownButton";
-// @ts-ignore
 import _JSXStyle from 'styled-jsx/style'
-// @ts-ignore
 import Center from 'react-center';
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-// @ts-ignore
 import {connect} from 'react-redux'
 
 function TopBar(props: any) {

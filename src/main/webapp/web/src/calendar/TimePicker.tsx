@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-// @ts-ignore
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';

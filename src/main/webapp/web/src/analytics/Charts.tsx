@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react'
 import * as React from 'react';
-// @ts-ignore
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,}  from 'recharts';
 import {Calendar} from "../calendar/Calendar";
+import {connect} from 'react-redux'
 
-export const Charts: React.FunctionComponent = (props: any) => {
+const Charts: React.FunctionComponent = (props: any) => {
     let [chart, setChart] = useState([])
     let loadForex = () => {
         fetch('http://localhost:8080/api/forex')
@@ -24,7 +24,7 @@ export const Charts: React.FunctionComponent = (props: any) => {
 
     useEffect(() => {
         if (chart.length < 1) loadForex()
-
+        props.saveDataToRedux(chart)
     })
 
     return (
@@ -49,3 +49,19 @@ export const Charts: React.FunctionComponent = (props: any) => {
 
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        data: state.data
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        saveDataToRedux: data => {
+            dispatch({type: 'SAVE_DATA', data: data})
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Charts)

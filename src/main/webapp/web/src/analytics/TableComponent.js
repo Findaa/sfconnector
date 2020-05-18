@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import * as React from "react";
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
-// @ts-ignore
 import {connect} from 'react-redux'
 
 function TableComponent(props) {
