@@ -47,8 +47,6 @@ function TopBar(props: any) {
                     <MenuItem href='/motivation'>Project Motivation</MenuItem>
                     <MenuItem href='/members'>Project Members</MenuItem>
                     <MenuItem href='/flow'>Data flow</MenuItem>
-                    <MenuItem href='/res'>Resources</MenuItem>
-                    <MenuItem href='/projects'>Test template</MenuItem>
                     <MenuItem divider/>
                     <MenuItem href='/test' active={true}>Test API after login</MenuItem>
                 </DropdownButton>
@@ -73,17 +71,13 @@ function TopBar(props: any) {
                     <MenuItem href='/motivation'>Project Motivation</MenuItem>
                     <MenuItem href='/members'>Project Members</MenuItem>
                     <MenuItem href='/flow'>Data flow</MenuItem>
-                    <MenuItem href='/res'>Resources</MenuItem>
-                    <MenuItem href='/projects'>Test template</MenuItem>
-                    <MenuItem divider/>
-                    <MenuItem href='/test' active={true}>Test API after login</MenuItem>
+
                 </DropdownButton>
             </Button>
             <Button
                 size="small">
                 <DropdownButton bsStyle='light' title='Settings'>
 
-                    <MenuItem href='/calendar'>Calendar</MenuItem>
                     <MenuItem divider/>
                     <MenuItem href="http://localhost:8080/logout" onClick={logout}>Logout</MenuItem>
                 </DropdownButton>
@@ -94,6 +88,8 @@ function TopBar(props: any) {
                     <MenuItem href='/plot'>Plots</MenuItem>
                     <MenuItem href='/test'>Tests</MenuItem>
                     <MenuItem href='/analytics'>Tables</MenuItem>
+                    <MenuItem divider/>
+                    <MenuItem href='/test' active={true}>Test site (check oauth)</MenuItem>
                 </DropdownButton>
             </Button>
         </ButtonGroup>

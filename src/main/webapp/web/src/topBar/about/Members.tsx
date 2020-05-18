@@ -28,7 +28,7 @@ export default function Members() {
                             <img src={Ryj} style={{width: '4%', height: '4%', border: '2px'}} alt="Face"/>
                             <div>{"\n"}{"\n"}{"\n"} Michał Cop</div>
                         </p>
-                        <p>Info</p>
+                        <p>Project developer and University of Economics student. Working as salesforce developer since 2019.   </p>
                     </Panel.Body>
                 </Panel>
             </div>
