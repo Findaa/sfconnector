@@ -1,4 +1,4 @@
-import {Component, useEffect, useState} from 'react'
+import {useState} from 'react'
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 import Button from "@material-ui/core/Button"
 import EuroIcon from "@material-ui/icons/Euro"
