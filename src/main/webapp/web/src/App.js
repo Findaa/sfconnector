@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
 
 import './main/App.css'
-import Projects from './main/Projects'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import LoginForm from "./login/LoginForm"
 import Members from "./topBar/about/Members"
 import AnalyticsRouter from "./analytics/AnalyticsRouter"
-import {Calendar} from "./calendar/Calendar";
 import {TestComponent} from "./main/TestComponent";
 import AboutTemplate from "./topBar/about/AboutTemplate";
 import TopBar from "./topBar/TopBar";
@@ -29,9 +27,8 @@ class App extends Component {
 
                             <Switch>
                                 <Route exact path="/" render={() => (
-                                    <Redirect to="/projects"/>
+                                    <Redirect to="/motivation"/>
                                 )}/>
-
                                 <Route exact path='/login' component={LoginForm}/>
                                 <Route exact path='/test' component={TestComponent}/>
                                 <Route exact path='/members' component={Members}/>
