@@ -31,8 +31,10 @@ function TopBar(props: any) {
 
     const logout = () => {
         setAuthOk(false);
+        fetch("http://localhost:8080/logout")
+            .then(() => console.log("Test"))
         props.logout()
-    };
+    }
 
     const openAbout = () => {
         setOpen(!open)
@@ -71,13 +73,11 @@ function TopBar(props: any) {
                     <MenuItem href='/motivation'>Project Motivation</MenuItem>
                     <MenuItem href='/members'>Project Members</MenuItem>
                     <MenuItem href='/flow'>Data flow</MenuItem>
-
                 </DropdownButton>
             </Button>
             <Button
                 size="small">
                 <DropdownButton bsStyle='light' title='Settings'>
-
                     <MenuItem divider/>
                     <MenuItem href="http://localhost:8080/logout" onClick={logout}>Logout</MenuItem>
                 </DropdownButton>

@@ -22,6 +22,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 authOk: false
             }
+
         case 'SAVE_DATA':
             console.log('Save data action')
             console.log('Data in action: ' + action.data)
