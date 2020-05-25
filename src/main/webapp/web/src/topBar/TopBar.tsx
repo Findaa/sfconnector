@@ -50,7 +50,6 @@ function TopBar(props: any) {
                     <MenuItem href='/members'>Project Members</MenuItem>
                     <MenuItem href='/flow'>Data flow</MenuItem>
                     <MenuItem divider/>
-                    <MenuItem href='/test' active={true}>Test API after login</MenuItem>
                 </DropdownButton>
             </Button>
             <Button
@@ -89,7 +88,7 @@ function TopBar(props: any) {
                     <MenuItem href='/test'>Tests</MenuItem>
                     <MenuItem href='/analytics'>Tables</MenuItem>
                     <MenuItem divider/>
-                    <MenuItem href='/test' active={true}>Test site (check oauth)</MenuItem>
+                    <MenuItem href='/test' active={true}>Test API after login</MenuItem>
                 </DropdownButton>
             </Button>
         </ButtonGroup>

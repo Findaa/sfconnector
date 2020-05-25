@@ -4,12 +4,27 @@ import * as React from "react";
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux'
+import {makeStyles} from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+
+const useStyles = makeStyles({
+    table: {
+        minWidth: 650,
+    },
+});
 
 function TableComponent(props) {
     const [data, setData] = useState([]);
     useEffect(() => {
         if (data.length < 10) loadDataOpps()
-        props.saveDataToRedux(data)
+
     });
 
     function loadDataOpps() {
@@ -20,7 +35,7 @@ function TableComponent(props) {
                 console.log("data");
                 console.log(data);
                 setData(data);
-
+                props.saveDataToRedux(data)
             })
             .catch((err) => {
                 console.error(props.url, err.toString());
@@ -28,146 +43,46 @@ function TableComponent(props) {
             })
     }
 
-    const Styles = styled.div`
-  padding: 1rem;
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-`;
+    const classes = useStyles();
 
-    function Table({columns, data}) {
-        const {
-            getTableProps,
-            getTableBodyProps,
-            headerGroups,
-            rows,
-            prepareRow,
-        } = useTable(
-            {
-                columns,
-                data,
-            },
-            useSortBy
-        );
-        const firstPageRows = rows.slice(0, 20);
-
-        return (
-            <>
-                <table {...getTableProps()}>
-                    <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                // Add the sorting props to control sorting. For this example
-                                // we can add them into the header props
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render('Header')}
-                                    {/* Add a sort direction indicator */}
-                                    <span>
-                    {column.isSorted
-                        ? column.isSortedDesc
-                            ? ' 🔽'
-                            : ' 🔼'
-                        : ''}
-                  </span>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                    </thead>
-                    <tbody {...getTableBodyProps()}>
-                    {firstPageRows.map(
-                        (row, i) => {
-                            prepareRow(row);
-                            return (
-                                <tr {...row.getRowProps()}>
-                                    {row.cells.map(cell => {
-                                        return (
-                                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                        )
-                                    })}
-                                </tr>
-                            )
-                        }
-                    )}
-                    </tbody>
-                </table>
-                <br/>
-                <div>Showing the first 20 results of {rows.length} rows</div>
-            </>
-        )
+    let generateUrl = (link) => {
+        let id = link.slice(-18);
+        let redirectUrl = 'https://mcopue-dev-ed.lightning.force.com/lightning/r/Opportunity/' + id + '/view'
+        return <a href={redirectUrl}>Go to salesforce {id}</a>
     }
 
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'Opportunities',
-                showPaginationTop: true,
-                showPaginationBottom: false,
-                showPageSizeOption: false,
-                columns: [
-                    {
-                        Header: 'ID',
-                        accessor: 'Id',
-                        maxWidth: 100,
-                        minWidth: 100
-                    },
-                    {
-                        Header: 'Name',
-                        accessor: 'Name',
-                        maxWidth: 100,
-                        minWidth: 100
-                    },
-                    {
-                        Header: 'Amount (value)',
-                        accessor: 'Amount',
-                        maxWidth: 100,
-                        minWidth: 100
-                    },
-                    {
-                        Header: 'Stage',
-                        accessor: 'StageName',
-                        maxWidth: 100,
-                        minWidth: 100
-                    },
-                    {
-                        Header: 'Url',
-                        accessor: 'attributes.url',
-                        maxWidth: 100,
-                        minWidth: 100,
-                        render: ({row}) => (<Link to={{pathname: `google.pl`}}>{row.name}</Link>)
-                    },
-                ]
-            },
-        ],
-    );
+
 
     return (
-        <center>
-            <div>
-                <Styles>
-                    <Table columns={columns} data={data}/>
-                </Styles>
-            </div>
-        </center>
+        <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Id</TableCell>
+                        <TableCell align="right">Name</TableCell>
+                        <TableCell align="right">Stage Name</TableCell>
+                        <TableCell align="right">Amount</TableCell>
+                        <TableCell align="right">Close Date</TableCell>
+                        <TableCell align="right">Salesforce Link</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {props.data.map((row) => (
+                        <TableRow key={row.id} onClick={() => console.log("clicked")}>
+                            <TableCell component="th" scope="row">
+                                {row.Id}
+                            </TableCell>
+                            <TableCell align="right">{row.Name}</TableCell>
+                            <TableCell align="right">{row.StageName}</TableCell>
+                            <TableCell align="right">{row.Amount}</TableCell>
+                            <TableCell align="right">{row.CloseDate}</TableCell>
+                            <TableCell
+                                align="right">{generateUrl(row.attributes ? row.attributes.url : 'elo')}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     )
 }
 
@@ -184,5 +99,6 @@ const mapDispatchToProps = dispatch => {
         }
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableComponent)
