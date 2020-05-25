@@ -76,10 +76,8 @@ function TableComponent(props) {
                             <TableCell align="right">{row.StageName}</TableCell>
                             <TableCell align="right">{row.Amount}</TableCell>
                             <TableCell align="right">{row.CloseDate}</TableCell>
-
                             <TableCell
                                 align="right">{generateUrl(row.attributes ? row.attributes.url : 'elo')}</TableCell>
-
                         </TableRow>
                     ))}
                 </TableBody>
